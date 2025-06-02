@@ -1,23 +1,23 @@
 <template>
-  <ul>
-    <li
+  <div class="flex flex-wrap gap-2 py-2">
+    <button
       v-for="category in categories"
       :key="category"
-      class="mb-2 cursor-pointer px-3 py-1 rounded hover:bg-yellow-100"
-      :class="selectedCategory === category ? 'bg-yellow-300 font-semibold' : ''"
-      @click="$emit('select-category', category)"
+      class="inline-block px-4 py-2 mr-2 bg-gray-200 rounded hover:bg-yellow-400 transition"
+      @click="selectCategory(category)"
     >
       {{ category.name }}
-    </li>
-  </ul>
+    </button>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'CategoryMenu',
-  props: {
-    categories: Array,
-    selectedCategory: String,
-  },
-};
+  props: ['categories'],
+  methods: {
+    selectCategory(cat) {
+      this.$emit('select-category', cat);
+    }
+  }
+}
 </script>

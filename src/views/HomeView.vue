@@ -48,7 +48,7 @@
         </div>
 
         <!-- Grid responsivo com produtos -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="grid grid-cols-5 sm:grid-cols-1 md:grid-cols-2 gap-4">
           <ProductCard
             v-for="product in displayedProducts"
             :key="product.id"
@@ -97,7 +97,7 @@ export default {
       selectedCategory: null,
       searchQuery: '',
       currentPage: 1,
-      limit: 18, // Produtos por página
+      limit: 20, // Produtos por página
       totalProducts: 0,
     };
   },
