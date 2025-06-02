@@ -1,27 +1,11 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import { createRouter, createWebHistory } from 'vue-router';
+import router from './router';
 
-// Importação de views
-import HomeView from './views/HomeView.vue';
-import ProductDetails from './views/ProductDetails.vue';
+import './index.css'; // Tailwind CSS import (gerado via Vite)
 
-// Importação global de estilos (TailwindCSS)
-import './assets/tailwind.css';
+const app = createApp(App);
 
-// Definição das rotas
-const routes = [
-  { path: '/', component: HomeView },
-  { path: '/product/:id', component: ProductDetails },
-];
+app.use(router);
 
-// Configuração do roteador
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
-
-// Criação e montagem do app
-createApp(App)
-  .use(router)
-  .mount('#app');
+app.mount('#app');

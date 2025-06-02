@@ -1,8 +1,8 @@
 <template>
   <div class="container mx-auto max-w-7xl p-6 bg-gray-50 min-h-screen">
     <div class="flex flex-col md:flex-row gap-8">
-      
-      <!-- Menu lateral -->
+
+      <!-- Menu lateral de categorias -->
       <aside class="md:w-1/4 bg-white rounded-lg shadow-lg p-6 sticky top-6 h-fit">
         <h2 class="text-xl font-bold mb-4 text-gray-800">Categorias</h2>
         <CategoryMenu
@@ -21,13 +21,13 @@
           @input="handleSearch"
           type="text"
           placeholder="Buscar produtos..."
-          class="border border-gray-300 p-3 rounded-lg w-full mb-8
-                 focus:outline-none focus:ring-4 focus:ring-blue-400
+          class="border border-gray-300 p-3 rounded-lg w-full mb-6
+                 focus:outline-none focus:ring-4 focus:ring-yellow-400
                  transition duration-300 ease-in-out"
         />
 
         <!-- Ordenação -->
-        <div class="mb-8 flex items-center gap-4">
+        <div class="mb-6 flex items-center gap-4">
           <label for="sort" class="font-semibold text-gray-700 whitespace-nowrap">
             Ordenar por:
           </label>
@@ -36,7 +36,7 @@
             v-model="sortOrder"
             @change="loadProducts"
             class="border border-gray-300 p-2 rounded-lg
-                   focus:outline-none focus:ring-4 focus:ring-blue-400
+                   focus:outline-none focus:ring-4 focus:ring-yellow-400
                    transition duration-300 ease-in-out"
           >
             <option value="">Padrão</option>
@@ -47,32 +47,14 @@
           </select>
         </div>
 
-        <!-- Layout 3 colunas com 6 produtos cada -->
-        <div class="flex gap-6">
-          <div class="flex-1 flex flex-col gap-6">
-            <ProductCard
-              v-for="product in column1"
-              :key="product.id"
-              :product="product"
-              @select="goToDetails"
-            />
-          </div>
-          <div class="flex-1 flex flex-col gap-6">
-            <ProductCard
-              v-for="product in column2"
-              :key="product.id"
-              :product="product"
-              @select="goToDetails"
-            />
-          </div>
-          <div class="flex-1 flex flex-col gap-6">
-            <ProductCard
-              v-for="product in column3"
-              :key="product.id"
-              :product="product"
-              @select="goToDetails"
-            />
-          </div>
+        <!-- Grid responsivo com produtos -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <ProductCard
+            v-for="product in displayedProducts"
+            :key="product.id"
+            :product="product"
+            @select="goToDetails"
+          />
         </div>
 
         <!-- Paginação -->
@@ -80,9 +62,10 @@
           :currentPage="currentPage"
           :totalPages="totalPages"
           @change-page="changePage"
-          class="mt-12"
+          class="mt-8"
         />
       </main>
+
     </div>
   </div>
 </template>
@@ -114,22 +97,16 @@ export default {
       selectedCategory: null,
       searchQuery: '',
       currentPage: 1,
-      limit: 18, // 3 colunas x 6 produtos
+      limit: 18, // Produtos por página
       totalProducts: 0,
     };
   },
   computed: {
+    displayedProducts() {
+      return this.products;
+    },
     totalPages() {
       return Math.ceil(this.totalProducts / this.limit);
-    },
-    column1() {
-      return this.products.slice(0, 6);
-    },
-    column2() {
-      return this.products.slice(6, 12);
-    },
-    column3() {
-      return this.products.slice(12, 18);
     }
   },
   methods: {
@@ -142,13 +119,12 @@ export default {
       }
     },
     async loadProducts() {
-      const skip = (this.currentPage - 1) * this.limit;
-      let res;
-
       try {
+        const skip = (this.currentPage - 1) * this.limit;
+        let res;
+
         if (this.searchQuery) {
-          // Supondo que a API permita paginação na busca, se não, vai trazer tudo
-          res = await searchProducts(this.searchQuery, this.limit, skip);
+          res = await searchProducts(this.searchQuery);
           this.products = res.data.products;
           this.totalProducts = res.data.total;
         } else if (this.selectedCategory) {
@@ -180,7 +156,6 @@ export default {
     handleCategorySelect(category) {
       this.selectedCategory = category;
       this.currentPage = 1;
-      this.searchQuery = '';
       this.loadProducts();
     },
     handleSearch() {
