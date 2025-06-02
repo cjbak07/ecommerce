@@ -7,7 +7,7 @@
       :class="selectedCategory === category ? 'bg-yellow-300 font-semibold' : ''"
       @click="$emit('select-category', category)"
     >
-      {{ category }}
+      {{ category.name }}
     </li>
   </ul>
 </template>
