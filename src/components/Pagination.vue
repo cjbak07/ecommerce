@@ -1,7 +1,7 @@
 <template>
   <div class="flex justify-center items-center gap-2">
     <button
-      class="px-3 py-1 rounded bg-yellow-400 text-white disabled:opacity-50"
+      class="px-3 py-1 rounded bg-yellow-400 text-black disabled:opacity-50"
       :disabled="currentPage === 1"
       @click="$emit('change-page', currentPage - 1)"
     >
@@ -19,7 +19,7 @@
     </button>
 
     <button
-      class="px-3 py-1 rounded bg-yellow-400 text-white disabled:opacity-50"
+      class="px-3 py-1 rounded bg-yellow-400 text-black disabled:opacity-50"
       :disabled="currentPage === totalPages"
       @click="$emit('change-page', currentPage + 1)"
     >

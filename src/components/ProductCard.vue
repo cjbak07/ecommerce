@@ -26,7 +26,7 @@
     </p>
 
     <button
-      class="mt-auto bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 rounded disabled:opacity-50"
+      class="mt-auto bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 rounded disabled:opacity-50"
       :disabled="product.stock === 0"
       @click="addToCartHandler"
     >
