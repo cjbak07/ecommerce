@@ -1,21 +1,16 @@
 <template>
-  <div
-    class="border rounded-lg p-4 cursor-pointer hover:shadow-lg transition-shadow flex flex-col"
-  >
+  <div class="border rounded-lg p-4 cursor-pointer hover:shadow-lg transition-shadow flex flex-col">
     <img
       :src="product.thumbnail"
       :alt="product.title"
-      class="w-full h-48 object-cover rounded-md mb-4"
+      class="w-full h-48 sm:h-36 object-cover sm:object-contain rounded-md mb-4"
       @click="goToDetails"
     />
-    <h3
-      class="font-semibold text-lg mb-1 cursor-pointer"
-      @click="goToDetails"
-    >
+    <h3 class="font-semibold text-lg sm:text-base mb-1 cursor-pointer" @click="goToDetails">
       {{ product.title }}
     </h3>
-    <p class="text-sm text-gray-600 mb-1 capitalize">{{ product.category }}</p>
-    <p class="font-bold text-yellow-600 mb-2">
+    <p class="text-sm sm:text-xs text-gray-600 mb-1 capitalize">{{ product.category }}</p>
+    <p class="font-bold text-yellow-600 mb-2 text-sm sm:text-xs">
       R$ {{ product.price.toFixed(2).replace('.', ',') }}
     </p>
     <p
@@ -26,7 +21,7 @@
     </p>
 
     <button
-      class="mt-auto bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 rounded disabled:opacity-50"
+      class="mt-auto bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-2 text-sm sm:text-xs rounded disabled:opacity-50"
       :disabled="product.stock === 0"
       @click="addToCartHandler"
     >
@@ -34,6 +29,7 @@
     </button>
   </div>
 </template>
+
 
 <script>
 import { useCart } from '../composables/useCart.js';

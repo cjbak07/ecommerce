@@ -1,25 +1,29 @@
 <template>
-  <div class="flex justify-center items-center gap-2">
+  <div class="flex flex-wrap justify-center items-center gap-2 sm:gap-1 sm:flex-col sm:items-stretch">
     <button
-      class="px-3 py-1 rounded bg-yellow-400 text-black disabled:opacity-50"
+      class="px-3 py-1 rounded bg-yellow-400 text-black disabled:opacity-50 text-sm"
       :disabled="currentPage === 1"
       @click="$emit('change-page', currentPage - 1)"
     >
       Anterior
     </button>
 
-    <button
-      v-for="page in pages"
-      :key="page"
-      class="px-3 py-1 rounded cursor-pointer"
-      :class="page === currentPage ? 'bg-yellow-500 text-white font-bold' : 'bg-yellow-100'"
-      @click="$emit('change-page', page)"
-    >
-      {{ page }}
-    </button>
+    <div class="flex flex-wrap justify-center gap-2 sm:gap-1">
+      <button
+        v-for="page in pages"
+        :key="page"
+        class="px-3 py-1 rounded text-sm"
+        :class="page === currentPage
+          ? 'bg-yellow-500 text-white font-bold'
+          : 'bg-yellow-100'"
+        @click="$emit('change-page', page)"
+      >
+        {{ page }}
+      </button>
+    </div>
 
     <button
-      class="px-3 py-1 rounded bg-yellow-400 text-black disabled:opacity-50"
+      class="px-3 py-1 rounded bg-yellow-400 text-black disabled:opacity-50 text-sm"
       :disabled="currentPage === totalPages"
       @click="$emit('change-page', currentPage + 1)"
     >
@@ -27,6 +31,7 @@
     </button>
   </div>
 </template>
+
 
 <script>
 export default {

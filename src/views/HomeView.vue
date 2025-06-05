@@ -1,9 +1,9 @@
 <template>
-  <div class="container mx-auto max-w-7xl p-6 bg-gray-50 min-h-screen">
+  <div class="container mx-auto max-w-7xl px-4 sm:px-6 py-6 bg-gray-50 min-h-screen">
     <div class="flex flex-col md:flex-row gap-8">
 
       <!-- Menu lateral de categorias -->
-      <aside class="md:w-1/4 bg-white rounded-lg shadow-lg p-6 sticky top-6 h-fit">
+      <aside class="w-full md:w-1/4 bg-white rounded-lg shadow-lg p-6 sticky md:top-6 h-fit">
         <h2 class="text-xl font-bold mb-4 text-gray-800">Categorias</h2>
         <CategoryMenu
           :categories="categories"
@@ -13,7 +13,7 @@
       </aside>
 
       <!-- Conteúdo principal -->
-      <main class="md:flex-1 bg-white rounded-lg shadow-lg p-8">
+      <main class="w-full md:flex-1 bg-white rounded-lg shadow-lg p-6 sm:p-8">
 
         <!-- Busca -->
         <input
@@ -27,7 +27,7 @@
         />
 
         <!-- Ordenação -->
-        <div class="mb-6 flex items-center gap-4">
+        <div class="mb-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
           <label for="sort" class="font-semibold text-gray-700 whitespace-nowrap">
             Ordenar por:
           </label>
@@ -35,7 +35,7 @@
             id="sort"
             v-model="sortOrder"
             @change="loadProducts"
-            class="border border-gray-300 p-2 rounded-lg
+            class="border border-gray-300 p-2 rounded-lg w-full sm:w-auto
                    focus:outline-none focus:ring-4 focus:ring-yellow-400
                    transition duration-300 ease-in-out"
           >
@@ -48,7 +48,7 @@
         </div>
 
         <!-- Grid responsivo com produtos -->
-        <div class="grid grid-cols-5 sm:grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           <ProductCard
             v-for="product in displayedProducts"
             :key="product.id"
@@ -69,6 +69,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 import ProductCard from '../components/ProductCard.vue';
